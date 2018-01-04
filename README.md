@@ -11,9 +11,26 @@ const asmany = require('asmany')
 
 /*
     The callback function returns a begin ran returns two things.
-    - the count/number of how many times it ran
-    - the mutated data being changed.
-    ex: asmany(i, data) => ..., 1, 'blah')
+    - data: the mutated data being changed.
+    - i: the count/number of how many times it ran
+    ex: asmany(data, i) => ..., 1, 'blah')
 */
 asmany((data) => data + 1, 5, 3) // 8
+
+asmany((data, i) => {
+    if (i === 1) {
+        return {
+            cat: 'meow'
+        }
+    } else {
+        return {
+            dog: 'woof'
+        }
+    }
+}, 2, {}) // { cat: 'meow', dog: 'woof' }
+
+
+const uuid = require('uuid')
+
+const accessToken = asmany((data) => uuid().split('-').join(''), 5, '') // Really long uuid string
 ```
