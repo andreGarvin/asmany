@@ -1,0 +1,28 @@
+{
+  "name": "asmany",
+  "version": "0.0.0",
+  "description": "A function that repeats a task as many times specified and returns the value of any the transformed data that was given. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreGarvin/asmany.git"
+  },
+  "keywords": [
+    "asmany",
+    "function",
+    "util",
+    "tool"
+  ],
+  "author": "Andre Garvin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreGarvin/asmany/issues"
+  },
+  "homepage": "https://github.com/andreGarvin/asmany#readme",
+  "devDependencies": {
+    "ava": "^0.24.0"
+  }
+}
