@@ -15,7 +15,11 @@ module.exports = (func, times, data) => {
 				if (Array.isArray(data)) {
 					newData = newData.concat(data)
 				} else {
-					Object.assign(newData, data)
+					if (Array.isArray(newData)) {
+						newData.push(data)
+					} else {
+						Object.assign(newData, data)
+					}
 				}
 				break;
 			case 'number':

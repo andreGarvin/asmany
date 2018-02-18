@@ -1,6 +1,6 @@
 {
   "name": "asmany",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A function that repeats a task as many times specified and returns the value of any the transformed data that was given. ",
   "main": "index.js",
   "scripts": {
