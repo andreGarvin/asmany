@@ -1,46 +1,66 @@
+const isObject = (o) => typeof o === 'object' && !Array.isArray(o)
+
 module.exports = (func, times, data) => {
-	let newData = data || (typeof data === 'object' ?
-		Array.isArray(data) ?
-			[] : {}
-		: 
-		typeof data === 'string' ?
-			'' : 0)
+	if (data === undefined) {
+		throw Error("No inital data was given")
+	}
 
+	let initial_data = data;
+ 
+	for (let i = 0; i < times; i++) {
+		let new_data = func(initial_data, i)
 
-	for (let i = 1; i <= times; i++) {
-		data = func( data, i )
-		
-		switch (typeof data) {
-			case 'object':
-				if (Array.isArray(data)) {
-					newData = newData.concat(data)
-				} else {
-					if (Array.isArray(newData)) {
-						newData.push(data)
+		if (new_data !== undefined) {
+
+			switch (typeof new_data) {
+				case 'object':
+					if (isObject(new_data)) {
+						if (Array.isArray(initial_data)) {
+							
+							const new_array = initial_data
+							new_array.push(new_data)
+							initial_data = new_array
+						} else {
+
+							initial_data = Object.assign(new_data, initial_data)
+						}
 					} else {
-						Object.assign(newData, data)
+						// if the a array of items was returned back 
+						if (Array.isArray(new_data)) {
+							
+							const new_array = initial_data
+							initial_data = new_array.concat(new_data)
+						} else {
+
+							const new_array = initial_data
+							new_array.push(new_data)
+							initial_data = new_array
+						}
 					}
-				}
-				break;
-			case 'number':
-				if (i === times) {
-					newData = data
-				} else {
-					newData += data
-				}
-				break;
-			case 'string':
-				if (i === times) {
-					newData = data
-				} else {
-					newData += data
-				}
-				break;
-			case 'boolean':
-				newData = data;
-				break;	
+					break;
+				case 'boolean':
+					initial_data = new_data;
+					break;	
+				default:
+					if (typeof new_data === 'number' || typeof new_data === 'string') {
+						if (Array.isArray(initial_data)) {
+
+							const new_array = initial_data
+							initial_data = new_array.concat(new_data)
+						} else {
+							
+							if (typeof new_data === 'number') {
+								initial_data = new_data
+							} else {
+								initial_data += new_data
+							}
+						}
+					}
+					break;
+			}
+
 		}
 	}
 
-	return newData
+	return initial_data
 }
